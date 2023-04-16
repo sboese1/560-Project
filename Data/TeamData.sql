@@ -1,3 +1,8 @@
+--INSERT INTO Team(TeamName,TeamColor)
+--SELECT T.TeamName, T.TeamColor
+--FROM TeamDataExc T
+--DROP TABLE TeamDataExc;
+
 INSERT INTO Team(TeamName,TeamColor) VALUES (N'Hawks',N'Red');
 INSERT INTO Team(TeamName,TeamColor) VALUES (N'Celtics',N'Green');
 INSERT INTO Team(TeamName,TeamColor) VALUES (N'Pelicans',N'Blue');

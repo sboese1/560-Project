@@ -1,3 +1,8 @@
+--INSERT INTO TeamGame(GameID,TeamID,TeamTypeID)
+--SELECT TG.GameID, TG.TeamID, TG.TeamTypeID
+--FROM TeamGameDataExc TG
+--DROP TABLE TeamGameDataExc;
+
 INSERT INTO TeamGame(GameID,TeamID,TeamTypeID) VALUES (1,17,1);
 INSERT INTO TeamGame(GameID,TeamID,TeamTypeID) VALUES (2,1,1);
 INSERT INTO TeamGame(GameID,TeamID,TeamTypeID) VALUES (3,10,1);

@@ -1,3 +1,9 @@
+--INSERT INTO Game(GameDate)
+--SELECT CAST(G.column1 AS NVARCHAR(4)) + N'/' + CAST(G.column2 AS NVARCHAR(4)) +
+--		N'/' + CAST(G.column3 AS NVARCHAR(4))
+--FROM GameDataExc G
+--DROP TABLE GameDataExc;
+
 INSERT INTO Game(GameDate) VALUES ('3/11/2020');
 INSERT INTO Game(GameDate) VALUES ('3/11/2020');
 INSERT INTO Game(GameDate) VALUES ('3/11/2020');

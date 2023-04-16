@@ -1,3 +1,8 @@
+--INSERT INTO PlayerStats(GameID,TeamID,PlayerID,Points,Rebounds,Assists)
+--SELECT PS.GameID, PS.TeamID, PS.PlayerID, PS.Points, PS.Rebounds, PS.Assists
+--FROM PlayerStatsDataExc PS
+--DROP TABLE PlayerStatsDataExc;
+
 INSERT INTO PlayerStats(GameID,TeamID,PlayerID,Points,Rebounds,Assists) VALUES (2,1,47,12,12,8);
 INSERT INTO PlayerStats(GameID,TeamID,PlayerID,Points,Rebounds,Assists) VALUES (14,1,47,14,6,7);
 INSERT INTO PlayerStats(GameID,TeamID,PlayerID,Points,Rebounds,Assists) VALUES (68,1,47,18,10,7);

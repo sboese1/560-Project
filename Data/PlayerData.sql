@@ -1,3 +1,8 @@
+--INSERT INTO Player([Name],TeamID,JerseyNumber,Height,[Weight],Age)
+--SELECT P.[Name], P.TeamID, P.JerseyNumber, P.Height, P.[Weight], P.Age
+--FROM PlayerDataExc P
+--DROP TABLE PlayerDataExc;
+
 INSERT INTO Player([Name],TeamID,JerseyNumber,Height,[Weight],Age) VALUES (N'Bojan Bogdanovic',24,5,85,216,38);
 INSERT INTO Player([Name],TeamID,JerseyNumber,Height,[Weight],Age) VALUES (N'Rudy Gobert',24,24,83,226,37);
 INSERT INTO Player([Name],TeamID,JerseyNumber,Height,[Weight],Age) VALUES (N'Donovan Mitchell',24,8,73,224,24);

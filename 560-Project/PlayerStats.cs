@@ -14,6 +14,8 @@ namespace _560_Project
     public partial class PlayerStats : Form
     {
         private string conn = "Data Source=mssql.cs.ksu.edu;Initial Catalog=cjbrown1;Persist Security Info=True;User ID=cjbrown1;Password=SheropTrogOui24";
+        //private string conn = "Data Source=(LocalDb)\\MSSQLLocalDb;Initial Catalog=Local;Persist Security Info=True;";
+
 
         public PlayerStats()
         {

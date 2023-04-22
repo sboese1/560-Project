@@ -13,8 +13,8 @@ namespace _560_Project
 {
     public partial class Form1 : Form
     {
-        private string conn = "Data Source=mssql.cs.ksu.edu;Initial Catalog=cjbrown1;Persist Security Info=True;User ID=cjbrown1;Password=SheropTrogOui24";
-        //private string conn = "Data Source=(LocalDb)\\MSSQLLocalDb;Initial Catalog=Local;Persist Security Info=True;";
+        //private string conn = "Data Source=mssql.cs.ksu.edu;Initial Catalog=cjbrown1;Persist Security Info=True;User ID=cjbrown1;Password=SheropTrogOui24";
+        private string conn = "Data Source=(LocalDb)\\MSSQLLocalDb;Initial Catalog=Local;Persist Security Info=True;";
         private Dictionary<string, int> TeamInfo = new Dictionary<string, int>();
 
         public static string SetTeamName;
@@ -23,18 +23,36 @@ namespace _560_Project
         public Form1()
         {
             InitializeComponent();
+            //SetPlayerName = listBox2.SelectedItem.ToString();
+            //PlayerStats p = new PlayerStats();
+            //p.Show();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void addNewPlayerButton_Click(object sender, EventArgs e)
         {
-
+            AddPlayer addPlayer = new AddPlayer();
+            addPlayer.FormClosed += AddPlayer_FormClosed;
+            addPlayer.ShowDialog();
         }
 
-        private void ViewPlayerStatsButton_Click(object sender, EventArgs e)
+        private void AddPlayer_FormClosed(object sender, FormClosedEventArgs e)
         {
-            SetPlayerName = listBox2.SelectedItem.ToString();
-            PlayerStats p = new PlayerStats();
-            p.Show();
+            AddPlayer t = (AddPlayer)sender;
+            int team = TeamInfo[t.TeamName];
+            string query = "INSERT INTO Player (TeamID, [Name], JerseyNumber, Height, [Weight],  Age)";
+            query += " VALUES (@TeamID, @Name, @JerseyNumber, @Height, @Weight, @Age)";
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand myCommand = new SqlCommand(query, connection);
+            myCommand.Parameters.AddWithValue("@TeamID", team);
+            myCommand.Parameters.AddWithValue("@Name", t.Name);
+            myCommand.Parameters.AddWithValue("@JerseyNumber", t.JerseyNumber);
+            myCommand.Parameters.AddWithValue("@Height", t.Height);
+            myCommand.Parameters.AddWithValue("@Weight", t.Weight);
+            myCommand.Parameters.AddWithValue("@Age", t.Age);
+            myCommand.ExecuteNonQuery();
+            connection.Close();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -51,25 +69,38 @@ namespace _560_Project
             }
         }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void AddNewTeamButton_Click(object sender, EventArgs e)
         {
+            AddTeam addForm = new AddTeam();
+            addForm.FormClosed += AddForm_FormClosed;
+            addForm.ShowDialog();
+        }
 
+        private void AddForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            AddTeam t = (AddTeam)sender;
+            string query = "INSERT INTO Team (TeamName, TeamColor)";
+            query += " VALUES (@TeamName, @TeamColor)";
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand myCommand = new SqlCommand(query, connection);
+            myCommand.Parameters.AddWithValue("@TeamName", t.Name);
+            myCommand.Parameters.AddWithValue("@TeamColor", t.Color);
+            myCommand.ExecuteNonQuery();
+            connection.Close();
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
             SqlConnection connection = new SqlConnection(conn);
             connection.Open();
             SqlCommand cmd = new SqlCommand("SELECT TeamName, TeamID FROM dbo.Team", connection);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                TeamInfo.Add(reader.GetValue(0).ToString(), Convert.ToInt32(reader.GetValue(1)));
+                if (!TeamInfo.ContainsKey(reader.GetValue(0).ToString()))TeamInfo.Add(reader.GetValue(0).ToString(), Convert.ToInt32(reader.GetValue(1)));
                 string output = reader.GetValue(0).ToString();
                 listBox1.Items.Add(output);
             }
@@ -77,9 +108,99 @@ namespace _560_Project
             //connection.Close();
         }
 
-        private void ViewTeamStatsButton_Click(object sender, EventArgs e)
+        private void addNewPlayerStats_Click(object sender, EventArgs e)
         {
-            SetTeamName = listBox1.SelectedItem.ToString();
+            AddPlayerStats addPlayerStats = new AddPlayerStats();
+            addPlayerStats.FormClosed += AddPlayerStats_FormClosed;
+            addPlayerStats.ShowDialog();
+        }
+
+        private void AddPlayerStats_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            AddPlayerStats t = (AddPlayerStats)sender;
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand playerQuery = new SqlCommand("SELECT PlayerID FROM dbo.Player WHERE [Name] = '" + t.Name + "'", connection);
+            SqlDataReader reader = playerQuery.ExecuteReader();
+            string playerID = "";
+            while (reader.Read()) { playerID = reader.GetValue(0).ToString(); }
+            reader.Close();
+
+            SqlCommand teamQuery = new SqlCommand("SELECT TeamID FROM dbo.Team WHERE TeamName = '" + t.TeamName + "'", connection);
+            reader = teamQuery.ExecuteReader();
+            string teamID = "";
+            while (reader.Read()) { teamID = reader.GetValue(0).ToString(); }
+            reader.Close();
+
+            SqlCommand gameQuery = new SqlCommand("SELECT G.GameID FROM dbo.TeamGame AS TG INNER JOIN Game AS G ON TG.GameID = G.GameID" +
+                " INNER JOIN PlayerStats AS PS ON TG.GameID = PS.GameID AND TG.TeamID = PS.TeamID" +
+                " WHERE TG.TeamID = '" + teamID + "' AND G.GameDate = '" + t.GameDate + "'", connection);
+            reader = gameQuery.ExecuteReader();
+            string gameID = "";
+            while (reader.Read()) { gameID = reader.GetValue(0).ToString(); }
+            reader.Close();
+
+            string query = "INSERT INTO PlayerStats (GameID, TeamID, PlayerID, Points, Rebounds, Assists)";
+            query += " VALUES (@GameID, @TeamID, @PlayerID, @Points, @Rebounds, @Assists)";
+
+
+            SqlCommand myCommand = new SqlCommand(query, connection);
+            myCommand.Parameters.AddWithValue("@GameID", gameID);
+            myCommand.Parameters.AddWithValue("@TeamID", teamID);
+            myCommand.Parameters.AddWithValue("@PlayerID", playerID);
+            myCommand.Parameters.AddWithValue("@Points", t.Points);
+            myCommand.Parameters.AddWithValue("@Rebounds", t.Rebounds);
+            myCommand.Parameters.AddWithValue("@Assists", t.Assists);
+            myCommand.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        private void updatePlayerStatsButton_Click(object sender, EventArgs e)
+        {
+            AddPlayerStats addPlayerStats = new AddPlayerStats();
+            addPlayerStats.FormClosed += UpdatePlayerStats_FormClosed;
+            addPlayerStats.ShowDialog();
+        }
+
+        private void UpdatePlayerStats_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            AddPlayerStats t = (AddPlayerStats)sender;
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand playerQuery = new SqlCommand("SELECT PlayerID FROM dbo.Player WHERE [Name] = '" + t.Name + "'", connection);
+            SqlDataReader reader = playerQuery.ExecuteReader();
+            string playerID = "";
+            while (reader.Read()) { playerID = reader.GetValue(0).ToString(); }
+            reader.Close();
+
+            SqlCommand teamQuery = new SqlCommand("SELECT TeamID FROM dbo.Team WHERE TeamName = '" + t.TeamName + "'", connection);
+            reader = teamQuery.ExecuteReader();
+            string teamID = "";
+            while (reader.Read()) { teamID = reader.GetValue(0).ToString(); }
+            reader.Close();
+
+            SqlCommand gameQuery = new SqlCommand("SELECT G.GameID FROM dbo.TeamGame AS TG INNER JOIN Game AS G ON TG.GameID = G.GameID" +
+                " INNER JOIN PlayerStats AS PS ON TG.GameID = PS.GameID AND TG.TeamID = PS.TeamID" +
+                " WHERE TG.TeamID = '" + teamID + "' AND G.GameDate = '" + t.GameDate + "'", connection);
+            reader = gameQuery.ExecuteReader();
+            string gameID = "";
+            while (reader.Read()) { gameID = reader.GetValue(0).ToString(); }
+            reader.Close();
+
+            string query = "UPDATE PlayerStats SET Points = @Points, Rebounds = @Rebounds, Assists = @Assists" +
+                " WHERE GameID = @GameID AND TeamID = @TeamID AND PlayerID = @PlayerID";
+
+            SqlCommand myCommand = new SqlCommand(query, connection);
+            myCommand.Parameters.AddWithValue("@Points", t.Points);
+            myCommand.Parameters.AddWithValue("@Rebounds", t.Rebounds);
+            myCommand.Parameters.AddWithValue("@Assists", t.Assists);
+            myCommand.Parameters.AddWithValue("@GameID", gameID);
+            myCommand.Parameters.AddWithValue("@TeamID", teamID);
+            myCommand.Parameters.AddWithValue("@PlayerID", playerID);
+            myCommand.ExecuteNonQuery();
+            connection.Close();
         }
 
         private void standingsButton_Click(object sender, EventArgs e)

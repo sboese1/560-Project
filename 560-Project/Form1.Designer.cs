@@ -29,9 +29,9 @@ namespace _560_Project
         /// </summary>
         private void InitializeComponent()
         {
-            this.ViewTeamScheduleButton = new System.Windows.Forms.Button();
-            this.ViewTeamStatsButton = new System.Windows.Forms.Button();
-            this.ViewPlayerStatsButton = new System.Windows.Forms.Button();
+            this.updatePlayerStatsButton = new System.Windows.Forms.Button();
+            this.addNewPlayerStats = new System.Windows.Forms.Button();
+            this.addNewPlayerButton = new System.Windows.Forms.Button();
             this.AddNewTeamButton = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
@@ -50,34 +50,35 @@ namespace _560_Project
             this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // ViewTeamScheduleButton
+            // updatePlayerStatsButton
             // 
-            this.ViewTeamScheduleButton.Location = new System.Drawing.Point(12, 92);
-            this.ViewTeamScheduleButton.Name = "ViewTeamScheduleButton";
-            this.ViewTeamScheduleButton.Size = new System.Drawing.Size(115, 57);
-            this.ViewTeamScheduleButton.TabIndex = 0;
-            this.ViewTeamScheduleButton.Text = "View Team Schedule";
-            this.ViewTeamScheduleButton.UseVisualStyleBackColor = true;
+            this.updatePlayerStatsButton.Location = new System.Drawing.Point(12, 92);
+            this.updatePlayerStatsButton.Name = "updatePlayerStatsButton";
+            this.updatePlayerStatsButton.Size = new System.Drawing.Size(115, 57);
+            this.updatePlayerStatsButton.TabIndex = 0;
+            this.updatePlayerStatsButton.Text = "Update Player Stats";
+            this.updatePlayerStatsButton.UseVisualStyleBackColor = true;
+            this.updatePlayerStatsButton.Click += new System.EventHandler(this.updatePlayerStatsButton_Click);
             // 
-            // ViewTeamStatsButton
+            // addNewPlayerStats
             // 
-            this.ViewTeamStatsButton.Location = new System.Drawing.Point(12, 187);
-            this.ViewTeamStatsButton.Name = "ViewTeamStatsButton";
-            this.ViewTeamStatsButton.Size = new System.Drawing.Size(115, 56);
-            this.ViewTeamStatsButton.TabIndex = 1;
-            this.ViewTeamStatsButton.Text = "View Team Stats";
-            this.ViewTeamStatsButton.UseVisualStyleBackColor = true;
-            this.ViewTeamStatsButton.Click += new System.EventHandler(this.ViewTeamStatsButton_Click);
+            this.addNewPlayerStats.Location = new System.Drawing.Point(12, 187);
+            this.addNewPlayerStats.Name = "addNewPlayerStats";
+            this.addNewPlayerStats.Size = new System.Drawing.Size(115, 56);
+            this.addNewPlayerStats.TabIndex = 1;
+            this.addNewPlayerStats.Text = "Add New Player Stats";
+            this.addNewPlayerStats.UseVisualStyleBackColor = true;
+            this.addNewPlayerStats.Click += new System.EventHandler(this.addNewPlayerStats_Click);
             // 
-            // ViewPlayerStatsButton
+            // addNewPlayerButton
             // 
-            this.ViewPlayerStatsButton.Location = new System.Drawing.Point(12, 286);
-            this.ViewPlayerStatsButton.Name = "ViewPlayerStatsButton";
-            this.ViewPlayerStatsButton.Size = new System.Drawing.Size(115, 60);
-            this.ViewPlayerStatsButton.TabIndex = 2;
-            this.ViewPlayerStatsButton.Text = "View Player Stats";
-            this.ViewPlayerStatsButton.UseVisualStyleBackColor = true;
-            this.ViewPlayerStatsButton.Click += new System.EventHandler(this.ViewPlayerStatsButton_Click);
+            this.addNewPlayerButton.Location = new System.Drawing.Point(12, 286);
+            this.addNewPlayerButton.Name = "addNewPlayerButton";
+            this.addNewPlayerButton.Size = new System.Drawing.Size(115, 60);
+            this.addNewPlayerButton.TabIndex = 2;
+            this.addNewPlayerButton.Text = "Add New Player";
+            this.addNewPlayerButton.UseVisualStyleBackColor = true;
+            this.addNewPlayerButton.Click += new System.EventHandler(this.addNewPlayerButton_Click);
             // 
             // AddNewTeamButton
             // 
@@ -105,7 +106,6 @@ namespace _560_Project
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(169, 407);
             this.listBox2.TabIndex = 5;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -158,7 +158,7 @@ namespace _560_Project
             this.playerTotalsButton.Name = "playerTotalsButton";
             this.playerTotalsButton.Size = new System.Drawing.Size(115, 59);
             this.playerTotalsButton.TabIndex = 15;
-            this.playerTotalsButton.Text = "Calculate Player Totals";
+            this.playerTotalsButton.Text = "Calculate Players\' Totals";
             this.playerTotalsButton.UseVisualStyleBackColor = true;
             this.playerTotalsButton.Click += new System.EventHandler(this.playerTotalsButton_Click);
             // 
@@ -245,12 +245,11 @@ namespace _560_Project
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.AddNewTeamButton);
-            this.Controls.Add(this.ViewPlayerStatsButton);
-            this.Controls.Add(this.ViewTeamStatsButton);
-            this.Controls.Add(this.ViewTeamScheduleButton);
+            this.Controls.Add(this.addNewPlayerButton);
+            this.Controls.Add(this.addNewPlayerStats);
+            this.Controls.Add(this.updatePlayerStatsButton);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,9 +257,9 @@ namespace _560_Project
 
         #endregion
 
-        private System.Windows.Forms.Button ViewTeamScheduleButton;
-        private System.Windows.Forms.Button ViewTeamStatsButton;
-        private System.Windows.Forms.Button ViewPlayerStatsButton;
+        private System.Windows.Forms.Button updatePlayerStatsButton;
+        private System.Windows.Forms.Button addNewPlayerStats;
+        private System.Windows.Forms.Button addNewPlayerButton;
         private System.Windows.Forms.Button AddNewTeamButton;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;

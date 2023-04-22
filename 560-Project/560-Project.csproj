@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddTeam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddTeam.Designer.cs">
+      <DependentUpon>AddTeam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPlayer.Designer.cs">
+      <DependentUpon>AddPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +69,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="AddPlayerStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPlayerStats.Designer.cs">
+      <DependentUpon>AddPlayerStats.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlayerStats.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,8 +83,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddTeam.resx">
+      <DependentUpon>AddTeam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPlayer.resx">
+      <DependentUpon>AddPlayer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPlayerStats.resx">
+      <DependentUpon>AddPlayerStats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayerStats.resx">
       <DependentUpon>PlayerStats.cs</DependentUpon>

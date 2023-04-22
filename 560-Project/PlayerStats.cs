@@ -2,29 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace _560_Project
 {
     public partial class PlayerStats : Form
     {
-        private string conn = "Data Source=mssql.cs.ksu.edu;Initial Catalog=cjbrown1;Persist Security Info=True;User ID=cjbrown1;Password=SheropTrogOui24";
-        //private string conn = "Data Source=(LocalDb)\\MSSQLLocalDb;Initial Catalog=Local;Persist Security Info=True;";
-
+        //private string conn = "Data Source=mssql.cs.ksu.edu;Initial Catalog=cjbrown1;Persist Security Info=True;User ID=cjbrown1;Password=SheropTrogOui24";
+        private string conn = "Data Source=(LocalDb)\\MSSQLLocalDb;Initial Catalog=Local;Persist Security Info=True;";
 
         public PlayerStats()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void PlayerStats_Load(object sender, EventArgs e)
@@ -39,7 +33,7 @@ namespace _560_Project
             SqlCommand cmd4 = new SqlCommand("SELECT Age FROM dbo.Player WHERE Name = '" + Form1.SetPlayerName + "'", connection);
 
             SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read(); 
+            reader.Read();
             label3.Text = reader.GetValue(0).ToString();
             reader.Close();
 

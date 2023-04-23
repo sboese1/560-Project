@@ -13,8 +13,6 @@ namespace _560_Project
 {
     public partial class AddPlayerStats : Form
     {
-        public string Name { get; set; }
-        public string TeamName { get; set; }
         public string GameDate { get; set; }
         public string Points { get; set; }
         public string Rebounds { get; set; }
@@ -27,8 +25,6 @@ namespace _560_Project
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Name = firstTextbox.Text;
-            TeamName = secondTextbox.Text;
             GameDate = thirdTextbox.Text;
             Points = fourthTextbox.Text;
             Rebounds = fifthTextbox.Text;

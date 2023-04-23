@@ -48,11 +48,16 @@ namespace _560_Project
             this.lastDateTB = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.deletePlayerButton = new System.Windows.Forms.Button();
+            this.viewPlayerButton = new System.Windows.Forms.Button();
+            this.deleteTeamButton = new System.Windows.Forms.Button();
+            this.viewTeamButton = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // updatePlayerStatsButton
             // 
-            this.updatePlayerStatsButton.Location = new System.Drawing.Point(12, 92);
+            this.updatePlayerStatsButton.Location = new System.Drawing.Point(12, 192);
             this.updatePlayerStatsButton.Name = "updatePlayerStatsButton";
             this.updatePlayerStatsButton.Size = new System.Drawing.Size(115, 57);
             this.updatePlayerStatsButton.TabIndex = 0;
@@ -62,7 +67,7 @@ namespace _560_Project
             // 
             // addNewPlayerStats
             // 
-            this.addNewPlayerStats.Location = new System.Drawing.Point(12, 187);
+            this.addNewPlayerStats.Location = new System.Drawing.Point(12, 255);
             this.addNewPlayerStats.Name = "addNewPlayerStats";
             this.addNewPlayerStats.Size = new System.Drawing.Size(115, 56);
             this.addNewPlayerStats.TabIndex = 1;
@@ -72,9 +77,9 @@ namespace _560_Project
             // 
             // addNewPlayerButton
             // 
-            this.addNewPlayerButton.Location = new System.Drawing.Point(12, 286);
+            this.addNewPlayerButton.Location = new System.Drawing.Point(12, 66);
             this.addNewPlayerButton.Name = "addNewPlayerButton";
-            this.addNewPlayerButton.Size = new System.Drawing.Size(115, 60);
+            this.addNewPlayerButton.Size = new System.Drawing.Size(115, 57);
             this.addNewPlayerButton.TabIndex = 2;
             this.addNewPlayerButton.Text = "Add New Player";
             this.addNewPlayerButton.UseVisualStyleBackColor = true;
@@ -82,9 +87,9 @@ namespace _560_Project
             // 
             // AddNewTeamButton
             // 
-            this.AddNewTeamButton.Location = new System.Drawing.Point(12, 383);
+            this.AddNewTeamButton.Location = new System.Drawing.Point(12, 317);
             this.AddNewTeamButton.Name = "AddNewTeamButton";
-            this.AddNewTeamButton.Size = new System.Drawing.Size(115, 59);
+            this.AddNewTeamButton.Size = new System.Drawing.Size(115, 60);
             this.AddNewTeamButton.TabIndex = 3;
             this.AddNewTeamButton.Text = "Add New Team";
             this.AddNewTeamButton.UseVisualStyleBackColor = true;
@@ -127,7 +132,7 @@ namespace _560_Project
             // 
             // ConnectButton
             // 
-            this.ConnectButton.Location = new System.Drawing.Point(78, 19);
+            this.ConnectButton.Location = new System.Drawing.Point(12, 6);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(115, 54);
             this.ConnectButton.TabIndex = 8;
@@ -164,7 +169,7 @@ namespace _560_Project
             // 
             // dayPointTotalsButton
             // 
-            this.dayPointTotalsButton.Location = new System.Drawing.Point(148, 286);
+            this.dayPointTotalsButton.Location = new System.Drawing.Point(148, 317);
             this.dayPointTotalsButton.Name = "dayPointTotalsButton";
             this.dayPointTotalsButton.Size = new System.Drawing.Size(115, 60);
             this.dayPointTotalsButton.TabIndex = 14;
@@ -174,7 +179,7 @@ namespace _560_Project
             // 
             // playerAveragesButton
             // 
-            this.playerAveragesButton.Location = new System.Drawing.Point(148, 187);
+            this.playerAveragesButton.Location = new System.Drawing.Point(148, 255);
             this.playerAveragesButton.Name = "playerAveragesButton";
             this.playerAveragesButton.Size = new System.Drawing.Size(115, 56);
             this.playerAveragesButton.TabIndex = 13;
@@ -184,7 +189,7 @@ namespace _560_Project
             // 
             // standingsButton
             // 
-            this.standingsButton.Location = new System.Drawing.Point(148, 92);
+            this.standingsButton.Location = new System.Drawing.Point(148, 192);
             this.standingsButton.Name = "standingsButton";
             this.standingsButton.Size = new System.Drawing.Size(115, 57);
             this.standingsButton.TabIndex = 12;
@@ -224,11 +229,65 @@ namespace _560_Project
             this.label5.TabIndex = 19;
             this.label5.Text = "Last Date";
             // 
+            // deletePlayerButton
+            // 
+            this.deletePlayerButton.Location = new System.Drawing.Point(12, 129);
+            this.deletePlayerButton.Name = "deletePlayerButton";
+            this.deletePlayerButton.Size = new System.Drawing.Size(115, 57);
+            this.deletePlayerButton.TabIndex = 20;
+            this.deletePlayerButton.Text = "Delete Player";
+            this.deletePlayerButton.UseVisualStyleBackColor = true;
+            this.deletePlayerButton.Click += new System.EventHandler(this.deletePlayerButton_Click);
+            // 
+            // viewPlayerButton
+            // 
+            this.viewPlayerButton.Location = new System.Drawing.Point(148, 66);
+            this.viewPlayerButton.Name = "viewPlayerButton";
+            this.viewPlayerButton.Size = new System.Drawing.Size(115, 57);
+            this.viewPlayerButton.TabIndex = 21;
+            this.viewPlayerButton.Text = "View Player";
+            this.viewPlayerButton.UseVisualStyleBackColor = true;
+            this.viewPlayerButton.Click += new System.EventHandler(this.viewPlayerButton_Click);
+            // 
+            // deleteTeamButton
+            // 
+            this.deleteTeamButton.Location = new System.Drawing.Point(12, 383);
+            this.deleteTeamButton.Name = "deleteTeamButton";
+            this.deleteTeamButton.Size = new System.Drawing.Size(115, 59);
+            this.deleteTeamButton.TabIndex = 22;
+            this.deleteTeamButton.Text = "Delete Team";
+            this.deleteTeamButton.UseVisualStyleBackColor = true;
+            this.deleteTeamButton.Click += new System.EventHandler(this.deleteTeamButton_Click);
+            // 
+            // viewTeamButton
+            // 
+            this.viewTeamButton.Location = new System.Drawing.Point(148, 129);
+            this.viewTeamButton.Name = "viewTeamButton";
+            this.viewTeamButton.Size = new System.Drawing.Size(115, 57);
+            this.viewTeamButton.TabIndex = 23;
+            this.viewTeamButton.Text = "View Team";
+            this.viewTeamButton.UseVisualStyleBackColor = true;
+            this.viewTeamButton.Click += new System.EventHandler(this.viewTeamButton_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(848, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Results";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 487);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.viewTeamButton);
+            this.Controls.Add(this.deleteTeamButton);
+            this.Controls.Add(this.viewPlayerButton);
+            this.Controls.Add(this.deletePlayerButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lastDateTB);
@@ -276,6 +335,11 @@ namespace _560_Project
         private System.Windows.Forms.TextBox lastDateTB;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button deletePlayerButton;
+        private System.Windows.Forms.Button viewPlayerButton;
+        private System.Windows.Forms.Button deleteTeamButton;
+        private System.Windows.Forms.Button viewTeamButton;
+        private System.Windows.Forms.Label label6;
     }
 }
 

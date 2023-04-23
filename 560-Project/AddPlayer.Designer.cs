@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.secondTextbox = new System.Windows.Forms.TextBox();
-            this.secondLabel = new System.Windows.Forms.Label();
             this.firstTextbox = new System.Windows.Forms.TextBox();
             this.firstLabel = new System.Windows.Forms.Label();
             this.fourthTextbox = new System.Windows.Forms.TextBox();
@@ -45,29 +43,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(90, 252);
+            this.button1.Location = new System.Drawing.Point(90, 213);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 9;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // secondTextbox
-            // 
-            this.secondTextbox.Location = new System.Drawing.Point(90, 65);
-            this.secondTextbox.Name = "secondTextbox";
-            this.secondTextbox.Size = new System.Drawing.Size(120, 20);
-            this.secondTextbox.TabIndex = 8;
-            // 
-            // secondLabel
-            // 
-            this.secondLabel.AutoSize = true;
-            this.secondLabel.Location = new System.Drawing.Point(19, 68);
-            this.secondLabel.Name = "secondLabel";
-            this.secondLabel.Size = new System.Drawing.Size(65, 13);
-            this.secondLabel.TabIndex = 7;
-            this.secondLabel.Text = "Team Name";
             // 
             // firstTextbox
             // 
@@ -87,7 +69,7 @@
             // 
             // fourthTextbox
             // 
-            this.fourthTextbox.Location = new System.Drawing.Point(90, 140);
+            this.fourthTextbox.Location = new System.Drawing.Point(90, 101);
             this.fourthTextbox.Name = "fourthTextbox";
             this.fourthTextbox.Size = new System.Drawing.Size(120, 20);
             this.fourthTextbox.TabIndex = 13;
@@ -95,7 +77,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 143);
+            this.label1.Location = new System.Drawing.Point(46, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 12;
@@ -103,7 +85,7 @@
             // 
             // thirdTextbox
             // 
-            this.thirdTextbox.Location = new System.Drawing.Point(90, 103);
+            this.thirdTextbox.Location = new System.Drawing.Point(90, 64);
             this.thirdTextbox.Name = "thirdTextbox";
             this.thirdTextbox.Size = new System.Drawing.Size(120, 20);
             this.thirdTextbox.TabIndex = 11;
@@ -111,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 106);
+            this.label2.Location = new System.Drawing.Point(7, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 10;
@@ -119,7 +101,7 @@
             // 
             // fifthTextbox
             // 
-            this.fifthTextbox.Location = new System.Drawing.Point(90, 178);
+            this.fifthTextbox.Location = new System.Drawing.Point(90, 139);
             this.fifthTextbox.Name = "fifthTextbox";
             this.fifthTextbox.Size = new System.Drawing.Size(120, 20);
             this.fifthTextbox.TabIndex = 15;
@@ -127,7 +109,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(43, 181);
+            this.label4.Location = new System.Drawing.Point(43, 142);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 14;
@@ -135,7 +117,7 @@
             // 
             // sixthTextbox
             // 
-            this.sixthTextbox.Location = new System.Drawing.Point(90, 215);
+            this.sixthTextbox.Location = new System.Drawing.Point(90, 176);
             this.sixthTextbox.Name = "sixthTextbox";
             this.sixthTextbox.Size = new System.Drawing.Size(120, 20);
             this.sixthTextbox.TabIndex = 17;
@@ -143,7 +125,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(58, 218);
+            this.label3.Location = new System.Drawing.Point(58, 179);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 16;
@@ -153,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(250, 287);
+            this.ClientSize = new System.Drawing.Size(250, 246);
             this.Controls.Add(this.sixthTextbox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.fifthTextbox);
@@ -163,8 +145,6 @@
             this.Controls.Add(this.thirdTextbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.secondTextbox);
-            this.Controls.Add(this.secondLabel);
             this.Controls.Add(this.firstTextbox);
             this.Controls.Add(this.firstLabel);
             this.Name = "AddPlayer";
@@ -177,8 +157,6 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox secondTextbox;
-        private System.Windows.Forms.Label secondLabel;
         private System.Windows.Forms.TextBox firstTextbox;
         private System.Windows.Forms.Label firstLabel;
         private System.Windows.Forms.TextBox fourthTextbox;

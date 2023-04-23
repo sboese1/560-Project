@@ -23,9 +23,6 @@ namespace _560_Project
         public Form1()
         {
             InitializeComponent();
-            //SetPlayerName = listBox2.SelectedItem.ToString();
-            //PlayerStats p = new PlayerStats();
-            //p.Show();
         }
 
         private void addNewPlayerButton_Click(object sender, EventArgs e)
@@ -38,24 +35,36 @@ namespace _560_Project
         private void AddPlayer_FormClosed(object sender, FormClosedEventArgs e)
         {
             AddPlayer t = (AddPlayer)sender;
-            int team = TeamInfo[t.TeamName];
+            string team = listBox1.SelectedItem.ToString();
+            int teamID = TeamInfo[team];
             string query = "INSERT INTO Player (TeamID, [Name], JerseyNumber, Height, [Weight],  Age)";
             query += " VALUES (@TeamID, @Name, @JerseyNumber, @Height, @Weight, @Age)";
 
             SqlConnection connection = new SqlConnection(conn);
             connection.Open();
             SqlCommand myCommand = new SqlCommand(query, connection);
-            myCommand.Parameters.AddWithValue("@TeamID", team);
+            myCommand.Parameters.AddWithValue("@TeamID", teamID);
             myCommand.Parameters.AddWithValue("@Name", t.Name);
             myCommand.Parameters.AddWithValue("@JerseyNumber", t.JerseyNumber);
             myCommand.Parameters.AddWithValue("@Height", t.Height);
             myCommand.Parameters.AddWithValue("@Weight", t.Weight);
             myCommand.Parameters.AddWithValue("@Age", t.Age);
-            myCommand.ExecuteNonQuery();
+            try
+            {
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex) { MessageBox.Show("Invalid input or action."); }
             connection.Close();
+
+            RefreshPlayers();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshPlayers();
+        }
+
+        private void RefreshPlayers()
         {
             listBox2.Items.Clear();
             SqlConnection connection = new SqlConnection(conn);
@@ -67,6 +76,12 @@ namespace _560_Project
                 string output = reader.GetValue(0).ToString();
                 listBox2.Items.Add(output);
             }
+
+            try
+            {
+                listBox2.SelectedIndex = 0;
+            }
+            catch (Exception ex) { }
         }
 
         private void AddNewTeamButton_Click(object sender, EventArgs e)
@@ -87,11 +102,22 @@ namespace _560_Project
             SqlCommand myCommand = new SqlCommand(query, connection);
             myCommand.Parameters.AddWithValue("@TeamName", t.Name);
             myCommand.Parameters.AddWithValue("@TeamColor", t.Color);
-            myCommand.ExecuteNonQuery();
+            try
+            {
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex) { MessageBox.Show("Invalid input or action."); }
             connection.Close();
+
+            RefreshTeams();
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)
+        {
+            RefreshTeams();
+        }
+
+        private void RefreshTeams()
         {
             listBox1.Items.Clear();
             SqlConnection connection = new SqlConnection(conn);
@@ -100,12 +126,12 @@ namespace _560_Project
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                if (!TeamInfo.ContainsKey(reader.GetValue(0).ToString()))TeamInfo.Add(reader.GetValue(0).ToString(), Convert.ToInt32(reader.GetValue(1)));
+                if (!TeamInfo.ContainsKey(reader.GetValue(0).ToString())) TeamInfo.Add(reader.GetValue(0).ToString(), Convert.ToInt32(reader.GetValue(1)));
                 string output = reader.GetValue(0).ToString();
                 listBox1.Items.Add(output);
             }
+            connection.Close();
             listBox1.SelectedIndex = 0;
-            //connection.Close();
         }
 
         private void addNewPlayerStats_Click(object sender, EventArgs e)
@@ -119,15 +145,18 @@ namespace _560_Project
         {
             AddPlayerStats t = (AddPlayerStats)sender;
 
+            string team = listBox1.SelectedItem.ToString();
+            string player = listBox2.SelectedItem.ToString();
+
             SqlConnection connection = new SqlConnection(conn);
             connection.Open();
-            SqlCommand playerQuery = new SqlCommand("SELECT PlayerID FROM dbo.Player WHERE [Name] = '" + t.Name + "'", connection);
+            SqlCommand playerQuery = new SqlCommand("SELECT PlayerID FROM dbo.Player WHERE [Name] = '" + player + "'", connection);
             SqlDataReader reader = playerQuery.ExecuteReader();
             string playerID = "";
             while (reader.Read()) { playerID = reader.GetValue(0).ToString(); }
             reader.Close();
 
-            SqlCommand teamQuery = new SqlCommand("SELECT TeamID FROM dbo.Team WHERE TeamName = '" + t.TeamName + "'", connection);
+            SqlCommand teamQuery = new SqlCommand("SELECT TeamID FROM dbo.Team WHERE TeamName = '" + team + "'", connection);
             reader = teamQuery.ExecuteReader();
             string teamID = "";
             while (reader.Read()) { teamID = reader.GetValue(0).ToString(); }
@@ -138,7 +167,15 @@ namespace _560_Project
                 " WHERE TG.TeamID = '" + teamID + "' AND G.GameDate = '" + t.GameDate + "'", connection);
             reader = gameQuery.ExecuteReader();
             string gameID = "";
-            while (reader.Read()) { gameID = reader.GetValue(0).ToString(); }
+            try
+            {
+                while (reader.Read()) { gameID = reader.GetValue(0).ToString(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect format.");
+                return;
+            }
             reader.Close();
 
             string query = "INSERT INTO PlayerStats (GameID, TeamID, PlayerID, Points, Rebounds, Assists)";
@@ -152,7 +189,11 @@ namespace _560_Project
             myCommand.Parameters.AddWithValue("@Points", t.Points);
             myCommand.Parameters.AddWithValue("@Rebounds", t.Rebounds);
             myCommand.Parameters.AddWithValue("@Assists", t.Assists);
-            myCommand.ExecuteNonQuery();
+            try
+            {
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex) { MessageBox.Show("Invalid input or action."); }
             connection.Close();
         }
 
@@ -167,15 +208,18 @@ namespace _560_Project
         {
             AddPlayerStats t = (AddPlayerStats)sender;
 
+            string team = listBox1.SelectedItem.ToString();
+            string player = listBox2.SelectedItem.ToString();
+
             SqlConnection connection = new SqlConnection(conn);
             connection.Open();
-            SqlCommand playerQuery = new SqlCommand("SELECT PlayerID FROM dbo.Player WHERE [Name] = '" + t.Name + "'", connection);
+            SqlCommand playerQuery = new SqlCommand("SELECT PlayerID FROM dbo.Player WHERE [Name] = '" + player + "'", connection);
             SqlDataReader reader = playerQuery.ExecuteReader();
             string playerID = "";
             while (reader.Read()) { playerID = reader.GetValue(0).ToString(); }
             reader.Close();
 
-            SqlCommand teamQuery = new SqlCommand("SELECT TeamID FROM dbo.Team WHERE TeamName = '" + t.TeamName + "'", connection);
+            SqlCommand teamQuery = new SqlCommand("SELECT TeamID FROM dbo.Team WHERE TeamName = '" + team + "'", connection);
             reader = teamQuery.ExecuteReader();
             string teamID = "";
             while (reader.Read()) { teamID = reader.GetValue(0).ToString(); }
@@ -186,7 +230,15 @@ namespace _560_Project
                 " WHERE TG.TeamID = '" + teamID + "' AND G.GameDate = '" + t.GameDate + "'", connection);
             reader = gameQuery.ExecuteReader();
             string gameID = "";
-            while (reader.Read()) { gameID = reader.GetValue(0).ToString(); }
+            try
+            {
+                while (reader.Read()) { gameID = reader.GetValue(0).ToString(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect format.");
+                return;
+            }
             reader.Close();
 
             string query = "UPDATE PlayerStats SET Points = @Points, Rebounds = @Rebounds, Assists = @Assists" +
@@ -199,7 +251,11 @@ namespace _560_Project
             myCommand.Parameters.AddWithValue("@GameID", gameID);
             myCommand.Parameters.AddWithValue("@TeamID", teamID);
             myCommand.Parameters.AddWithValue("@PlayerID", playerID);
-            myCommand.ExecuteNonQuery();
+            try
+            {
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex) { MessageBox.Show("Invalid input or action."); }
             connection.Close();
         }
 
@@ -404,6 +460,143 @@ namespace _560_Project
             }
 
             return result;
+        }
+
+        private void deleteTeamButton_Click(object sender, EventArgs e)
+        {
+            string team = listBox1.SelectedItem.ToString();
+            int teamID = TeamInfo[team];
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand deleteTeam = new SqlCommand("DELETE FROM PlayerStats WHERE TeamID = " + teamID, connection);
+            deleteTeam.ExecuteNonQuery();
+            deleteTeam = new SqlCommand("DELETE FROM Player WHERE TeamID = " + teamID, connection);
+            deleteTeam.ExecuteNonQuery();
+            deleteTeam = new SqlCommand("DELETE FROM TeamGame WHERE TeamID = " + teamID, connection);
+            deleteTeam.ExecuteNonQuery();
+            deleteTeam = new SqlCommand("DELETE FROM Team WHERE TeamID = " + teamID, connection);
+            deleteTeam.ExecuteNonQuery();
+            connection.Close();
+
+            RefreshTeams();
+        }
+
+        private void deletePlayerButton_Click(object sender, EventArgs e)
+        {
+            string player = listBox2.SelectedItem.ToString();
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand deletePlayer = new SqlCommand("SELECT PlayerID FROM Player WHERE [Name] = '" + player + "'", connection);
+            SqlDataReader reader = deletePlayer.ExecuteReader();
+            string playerID = "";
+            while (reader.Read()) { playerID = reader.GetValue(0).ToString(); }
+            reader.Close();
+
+            deletePlayer = new SqlCommand("DELETE FROM PlayerStats WHERE PlayerID = " + playerID, connection);
+            deletePlayer.ExecuteNonQuery();
+            deletePlayer = new SqlCommand("DELETE FROM Player WHERE PlayerID = " + playerID, connection);
+            deletePlayer.ExecuteNonQuery();
+            connection.Close();
+
+            RefreshPlayers();
+        }
+
+        private void viewTeamButton_Click(object sender, EventArgs e)
+        {
+            string team = listBox1.SelectedItem.ToString();
+            int teamID = TeamInfo[team];
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand getTeam = new SqlCommand("SELECT TeamColor FROM Team WHERE TeamID = " + teamID, connection);
+            SqlDataReader reader = getTeam.ExecuteReader();
+            string teamColor = "";
+            while (reader.Read()) { teamColor = reader.GetValue(0).ToString(); }
+
+            ViewTeam viewTeam = new ViewTeam(team, teamColor);
+            viewTeam.FormClosed += ViewTeam_FormClosed;
+            viewTeam.ShowDialog();
+        }
+
+        private void ViewTeam_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ViewTeam t = (ViewTeam)sender;
+            string team = listBox1.SelectedItem.ToString();
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            string query = "UPDATE Team SET TeamName = @TeamName, TeamColor = @TeamColor" +
+                " WHERE TeamName = '" + team + "'";
+
+            SqlCommand myCommand = new SqlCommand(query, connection);
+            myCommand.Parameters.AddWithValue("@TeamName", t.TeamName);
+            myCommand.Parameters.AddWithValue("@TeamColor", t.TeamColor);
+            try
+            {
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex) { MessageBox.Show("Invalid input or action."); }
+            connection.Close();
+
+            RefreshTeams();
+        }
+
+        private void viewPlayerButton_Click(object sender, EventArgs e)
+        {
+            string team = listBox1.SelectedItem.ToString();
+            int teamID = TeamInfo[team];
+            string player = listBox2.SelectedItem.ToString();
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            SqlCommand getTeam = new SqlCommand("SELECT JerseyNumber, Height, Weight, Age FROM Player " +
+                "WHERE [Name] = '" + player + "' AND TeamID = " + teamID, connection);
+            SqlDataReader reader = getTeam.ExecuteReader();
+            string num = "";
+            string height = "";
+            string weight = "";
+            string age = "";
+            while (reader.Read()) 
+            {
+                num = reader.GetValue(0).ToString(); 
+                height = reader.GetValue(1).ToString(); 
+                weight = reader.GetValue(2).ToString(); 
+                age = reader.GetValue(3).ToString(); 
+            }
+
+            ViewPlayer viewPlayer = new ViewPlayer(player, num, height, weight, age);
+            viewPlayer.FormClosed += ViewPlayer_FormClosed;
+            viewPlayer.ShowDialog();
+        }
+
+        private void ViewPlayer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ViewPlayer t = (ViewPlayer)sender;
+            string team = listBox1.SelectedItem.ToString();
+            int teamID = TeamInfo[team];
+            string player = listBox2.SelectedItem.ToString();
+
+            SqlConnection connection = new SqlConnection(conn);
+            connection.Open();
+            string query = "UPDATE Player SET [Name] = @Name, JerseyNumber = @JerseyNumber, Height = @Height," +
+                " Weight = @Weight, Age = @Age WHERE [Name] = '" + player + "' AND TeamID = " + teamID;
+
+            SqlCommand myCommand = new SqlCommand(query, connection);
+            myCommand.Parameters.AddWithValue("@Name", t.Name);
+            myCommand.Parameters.AddWithValue("@JerseyNumber", t.JerseyNumber);
+            myCommand.Parameters.AddWithValue("@Height", t.Height);
+            myCommand.Parameters.AddWithValue("@Weight", t.Weight);
+            myCommand.Parameters.AddWithValue("@Age", t.Age);
+            try
+            {
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex) { MessageBox.Show("Invalid input or action."); }
+            connection.Close();
+
+            RefreshPlayers();
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace _560_Project
 {
-    public partial class AddPlayer : Form
+    public partial class ViewPlayer : Form
     {
         public string Name { get; set; }
         public string JerseyNumber { get; set; }
@@ -18,18 +18,23 @@ namespace _560_Project
         public string Weight { get; set; }
         public string Age { get; set; }
 
-        public AddPlayer()
+        public ViewPlayer(string name, string num, string height, string weight, string age)
         {
             InitializeComponent();
+            nameTB.Text = name;
+            numTB.Text = num;
+            heightTB.Text = height;
+            weightTB.Text = weight;
+            ageTB.Text = age;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Name = firstTextbox.Text;
-            JerseyNumber = thirdTextbox.Text;
-            Height = fourthTextbox.Text;
-            Weight = fifthTextbox.Text;
-            Age = sixthTextbox.Text;
+            Name = nameTB.Text;
+            JerseyNumber = numTB.Text;
+            Height = heightTB.Text;
+            Weight = weightTB.Text;
+            Age = ageTB.Text;
             this.Close();
         }
     }

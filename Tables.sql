@@ -62,33 +62,3 @@ CREATE TABLE PlayerStats
 	FOREIGN KEY (GameID, TeamID) REFERENCES TeamGame(GameID, TeamID),
 	FOREIGN KEY (PlayerID, TeamID) REFERENCES Player(PlayerID, TeamID)
 );
-
-
-
-
--- Queries
-
---This query joins the Player, PlayerStats, and TeamGame and Team tables
--- and returns the total statistics of each player on a specific team
-
-DECLARE @TeamName NVARCHAR(128) = 'Jazz'; -- Replace with the desired team name
-
-SELECT 
-    Player.PlayerID,
-    Player.JerseyNumber,
-    Player.Name,
-    SUM(PlayerStats.Points) AS 'Total Points',
-    SUM(PlayerStats.Rebounds) AS 'Total Rebounds',
-    SUM(PlayerStats.Assists) AS 'Total Assists',
-    COUNT(DISTINCT PlayerStats.GameID) AS 'Games Played'
-FROM 
-    Player
-    JOIN PlayerStats ON Player.PlayerID = PlayerStats.PlayerID
-    JOIN TeamGame ON PlayerStats.GameID = TeamGame.GameID AND PlayerStats.TeamID = TeamGame.TeamID
-    JOIN Team ON TeamGame.TeamID = Team.TeamID
-WHERE 
-    Team.TeamName = @TeamName
-GROUP BY 
-    Player.PlayerID,
-    Player.JerseyNumber,
-    Player.Name

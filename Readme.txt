@@ -16,3 +16,6 @@ using the wizard provided in SSMS:
 5. Click next all the way through -- do not change anything
 6. Run the code at the top of the corresponding file. For example, if you are importing the TeamDataExc.csv file,
    then following doing that, run the four lines of code at the top of TeamData.sql
+   
+   
+NOTE: The game dates range from 2019-12-19 to 2020-03-11
